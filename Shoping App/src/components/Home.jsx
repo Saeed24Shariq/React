@@ -8,14 +8,15 @@ import Watch01 from "./../assets/slider/Watch01.png"
 import Watch02 from "./../assets/slider/Watch02.jpg"
 import Watch03 from "./../assets/slider/Watch03.jpg"
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addValue } from '../store/CartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addValue, addQty } from '../store/CartSlice';
+import { increment } from '../store/CounterSlice';
 
 export default function Home() {
 
+    const counter = useSelector( (state) => state.counter.value )
     const dispatch = useDispatch();
-
-    let [cart, setCart] = useState([]);
+    const cart = useSelector((state) => state.cart.value);
     let [product, setProduct] = useState([]);
     let [items, setItems] = useState(10);
     const fetchData = () => {
@@ -24,25 +25,37 @@ export default function Home() {
             .then((data) => setProduct(data.carts))
             .catch((err) => console.log("Error: ", err))
     }
+
     const loadMore = () => {
         setItems(items + 10);
         console.log(items)
     }
+
     useEffect(() => {
         fetchData();
         console.log(product)
     }, [items])
 
     const addToCart = (item) => {
-        const obj = {
-            title: item.title,
-            cost: Math.round((item.price) - (item.discountPercentage * item.price / 100)),
-            thumbnail: item.thumbnail,
+        let flag = false;
+        cart.forEach((i) => {
+            if (item.id === i.id) {
+                console.log("already Added")
+                flag = true;
+                dispatch(addQty(item))
+            }
+        })
+        if (flag == false) {
+            const obj = {
+                id: item.id,
+                title: item.title,
+                cost: Math.round((item.price) - (item.discountPercentage * item.price / 100)),
+                thumbnail: item.thumbnail,
+                qty: 1
+            }
+            dispatch(addValue(obj))
         }
-        cart.push(obj);
-        setCart(cart);
-        dispatch(addValue(obj));
-        console.log(cart);
+        dispatch(increment());
     }
 
     const sliderImg = [
@@ -108,6 +121,9 @@ export default function Home() {
             <div className='flex flex-center justify-center py-4'>
                 <button onClick={loadMore} className='w-[200px] rounded-full cursor-pointer bg-black text-white p-2'>Load More</button>
             </div>
-        </div>  
+            <div className='bg-black fixed right-0 top-[85vh] m-5 w-[50px] h-[50px] rounded-[50%] flex justify-center items-center'>
+                <h1 className='text-white text-xl font-bold'>{counter}</h1>
+            </div>
+        </div>
     )
 }

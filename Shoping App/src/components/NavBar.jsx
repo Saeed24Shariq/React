@@ -23,12 +23,6 @@ export default function NavBar() {
                         <Link to="/">
                             <li style={{ textDecoration: (isActive === "Home") ? "underline" : "none" }} className="mx-4 cursor-pointer" onClick={() => { setIsActive("Home") }}>Home</li>
                         </Link>
-                        <Link to="/Men">
-                            <li style={{ textDecoration: (isActive === "Men") ? "underline" : "none" }} className='mx-4 cursor-pointer' onClick={() => { setIsActive("Men") }}>Men</li>
-                        </Link>
-                        <Link to="/Women">
-                            <li style={{ textDecoration: (isActive === "Women") ? "underline" : "none" }} className='mx-4 cursor-pointer' onClick={() => { setIsActive("Women") }}>Women</li>
-                        </Link>
                         <Link to="Cart">
                             <li style={{ textDecoration: (isActive === "Cart") ? "underline" : "none" }} className='mx-4 cursor-pointer' onClick={() => { setIsActive("Cart") }}>Cart</li>
                         </Link>
@@ -57,10 +51,12 @@ export default function NavBar() {
                                         Close
                                     </li>
                                 </label>
-                                <li style={{ textDecoration: (isActive === "Home") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Home") }}>Home</li>
-                                <li style={{ textDecoration: (isActive === "Men") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Men") }}>Men</li>
-                                <li style={{ textDecoration: (isActive === "Women") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Women") }}>Women</li>
-                                <li style={{ textDecoration: (isActive === "Cart") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Cart") }}>Cart</li>
+                                <Link to="/">
+                                    <li style={{ textDecoration: (isActive === "Home") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Home") }}>Home</li>
+                                </Link> 
+                                <Link to="/Cart">
+                                    <li style={{ textDecoration: (isActive === "Cart") ? "underline" : "none" }} className="text-xl cursor-pointer my-3 bg-white text-black text-center p-2 w-[200px] rounded-full" onClick={() => { setIsActive("Cart") }}>Cart</li>
+                                </Link>
                             </ul>
                         </div>
                     </div>

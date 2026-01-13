@@ -7,13 +7,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UnderConstruction from './components/UnderConstruction.jsx';
 import Cart from './components/Cart.jsx';
 import { Provider } from "react-redux";
-import {CartStore} from "./store/CartStore.jsx"
+import {Store} from "./store/Store.jsx"
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <Provider store={CartStore}>
+      <Provider store={Store}>
         <NavBar />
         <Routes>
           <Route path='/' element={<Home />} />
